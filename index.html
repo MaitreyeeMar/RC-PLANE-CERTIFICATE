@@ -112,16 +112,24 @@
       "Arya"
     ];
 
-    function generateCertificate() {
-  const inputName = document.getElementById("teamNameInput").value.trim();
+    
+function generateCertificate() {
+  const inputField = document.getElementById("teamNameInput");
+  const inputName = inputField.value.trim().toLowerCase(); // clean input
   const certDiv = document.getElementById("certificate");
   const teamText = document.getElementById("teamNameOnCert");
 
-  if (eligibleTeams.map(name => name.toLowerCase()).includes(inputName.toLowerCase())) {
-    teamText.textContent = inputName;
+  // Normalize eligible team list
+  const normalizedTeams = eligibleTeams.map(t => t.trim().toLowerCase());
+
+  console.log("Entered:", inputName);  // Debug check
+  console.log("Eligible teams:", normalizedTeams);  // Debug check
+
+  if (normalizedTeams.includes(inputName)) {
+    teamText.textContent = inputField.value.trim(); // preserve original casing
     certDiv.style.display = "block";
 
-    // Create download button if not already added
+    // Add download button if not already there
     if (!document.getElementById("downloadBtn")) {
       const btn = document.createElement("button");
       btn.textContent = "Download Certificate";
@@ -134,6 +142,7 @@
     alert("Sorry, this team is not eligible for a certificate.");
   }
 }
+
 
 
     function downloadCertificate() {
@@ -163,5 +172,6 @@
   </script>
 </body>
 </html>
+
 
 
