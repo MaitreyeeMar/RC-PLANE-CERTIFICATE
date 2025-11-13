@@ -35,7 +35,5 @@ Only eligible teams can access and generate their personalized participation cer
 - **JavaScript (Vanilla JS)** — Eligibility check and dynamic rendering  
 - **Google Fonts** — Montserrat font integration  
 
----
 
-## Project Structure
 
