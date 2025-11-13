@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RC Plane Certificate Portal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-weight: 700;
+      color: #003366;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #003366;
+      border-radius: 8px;
+      margin: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0055a5;
+    }
+
+    #certificate {
+      display: none;
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      margin: 30px auto;
+    }
+
+    #certificate img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    #teamNameOnCert {
+      position: absolute;
+      top: 33%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      font-weight: 700;
+      color: #1e1e1e;
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h1>RC Plane Competition 2025 Certificate Portal</h1>
+  <p>Enter your team name to check if you're eligible for a Certificate of Participation</p>
+
+  <input type="text" id="teamNameInput" placeholder="Enter Team Name">
+  <button onclick="generateCertificate()">Get Certificate</button>
+
+  <div id="certificate">
+    <img id="certificateImg" src="certificate.png" alt="Certificate">
+    <div id="teamNameOnCert"></div>
+  </div>
+
+  <script>
+    const eligibleTeams = [
+      "SkyRiders",
+      "AeroBlazers",
+      "WingMasters",
+      "PropForce",
+      "Falcon Flyers"
+    ];
+
+    function generateCertificate() {
+      const inputName = document.getElementById("teamNameInput").value.trim();
+      const certDiv = document.getElementById("certificate");
+      const teamText = document.getElementById("teamNameOnCert");
+
+      if (eligibleTeams.includes(inputName)) {
+        teamText.textContent = inputName;
+        certDiv.style.display = "block";
+      } else {
+        certDiv.style.display = "none";
+        alert("Sorry, this team is not eligible for a certificate.");
+      }
+    }
+  </script>
+</body>
+</html>
