@@ -113,27 +113,28 @@
     ];
 
     function generateCertificate() {
-      const inputName = document.getElementById("teamNameInput").value.trim();
-      const certDiv = document.getElementById("certificate");
-      const teamText = document.getElementById("teamNameOnCert");
+  const inputName = document.getElementById("teamNameInput").value.trim();
+  const certDiv = document.getElementById("certificate");
+  const teamText = document.getElementById("teamNameOnCert");
 
-      if (eligibleTeams.includes(inputName)) {
-        teamText.textContent = inputName;
-        certDiv.style.display = "block";
+  if (eligibleTeams.map(name => name.toLowerCase()).includes(inputName.toLowerCase())) {
+    teamText.textContent = inputName;
+    certDiv.style.display = "block";
 
-        // Create download button if not already added
-        if (!document.getElementById("downloadBtn")) {
-          const btn = document.createElement("button");
-          btn.textContent = "Download Certificate";
-          btn.id = "downloadBtn";
-          btn.onclick = downloadCertificate;
-          document.body.appendChild(btn);
-        }
-      } else {
-        certDiv.style.display = "none";
-        alert("Sorry, this team is not eligible for a certificate.");
-      }
+    // Create download button if not already added
+    if (!document.getElementById("downloadBtn")) {
+      const btn = document.createElement("button");
+      btn.textContent = "Download Certificate";
+      btn.id = "downloadBtn";
+      btn.onclick = downloadCertificate;
+      document.body.appendChild(btn);
     }
+  } else {
+    certDiv.style.display = "none";
+    alert("Sorry, this team is not eligible for a certificate.");
+  }
+}
+
 
     function downloadCertificate() {
       const canvas = document.createElement("canvas");
@@ -162,4 +163,5 @@
   </script>
 </body>
 </html>
+
 
