@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RC Plane Competition 2025 Certificate Portal</title>
 
-  <!-- Import Montserrat font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -20,13 +19,6 @@
     h1 {
       font-weight: 700;
       color: #003366;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #333;
-      font-size: 16px;
-      margin-bottom: 20px;
     }
 
     input {
@@ -34,7 +26,6 @@
       font-size: 16px;
       border: 2px solid #003366;
       border-radius: 8px;
-      margin: 10px;
       width: 250px;
       text-align: center;
     }
@@ -47,11 +38,24 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: 0.2s;
+      margin-top: 10px;
     }
 
-    button:hover {
-      background-color: #0055a5;
+    #suggestions {
+      max-width: 250px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .suggestion {
+      background: white;
+      padding: 8px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .suggestion:hover {
+      background: #f0f4f8;
     }
 
     #certificate {
@@ -64,8 +68,6 @@
 
     #certificate img {
       width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
 
     #teamNameOnCert {
@@ -74,12 +76,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-weight: 700;
-      color: #1e1e1e;
-      font-family: 'Montserrat', sans-serif;
-      text-align: center;
-      width: 80%;
-      word-wrap: break-word;
       font-size: 2.5vw;
+      width: 80%;
     }
 
     @media (max-width: 600px) {
@@ -87,95 +85,155 @@
         font-size: 18px;
       }
     }
-
-    #downloadBtn {
-      margin-top: 15px;
-    }
   </style>
 </head>
 
 <body>
-  <h1>RC Plane Competition 2025 Certificate Portal</h1>
-  <p>Enter your team name to check eligibility for the Certificate of Participation.</p>
 
-  <input type="text" id="teamNameInput" placeholder="Enter Team Name">
-  <button onclick="generateCertificate()">Get Certificate</button>
+<h1>RC Plane Competition 2025 Certificate Portal</h1>
+<p>Enter your first name</p>
 
-  <div id="certificate">
-    <img id="certificateImg" src="CERTIFICATES RC PLANE.png" alt="Certificate Template">
-    <div id="teamNameOnCert"></div>
-  </div>
+<input type="text" id="teamNameInput" placeholder="Enter First Name">
+<div id="suggestions"></div>
 
-  <script>
-    const eligibleTeams = [
-      "Maitreyee",
-      "aeromodelling",
-      "arya"
-    ];
+<br>
+<button onclick="generateCertificate()">Get Certificate</button>
 
-    
+<div id="certificate">
+  <img id="certificateImg" src="CERTIFICATES RC PLANE.png">
+  <div id="teamNameOnCert"></div>
+</div>
+
+<script>
+/* ================= PARTICIPANT DATA ================= */
+const participants = [
+  /* ---- existing entries remain unchanged ---- */
+  "Azlan Shah","Nidhi Lohana","Ashwini Kumar","Atul Singh","Antriksh Goenka",
+  "Chinmay Gaonkar","Eklavya","Dhruva Prakash","Lovekush Malakar","Shrut Jain",
+  "M M Niranjan","Avdhoot Kulkarni","Nandan Ravichandran","Pratik Kine","Rishabh",
+  "Sauransh Goenka","Aayush Laddha","Rohit Singh","Aditya","Lokesh Prakash Patil",
+  "Parth","Shishir","Kais","Priyam Ritesh Mehta","Gaurav","Ravikant Prajapat",
+  "Jitesh Naik","Ansh Aggarwal","Shounak Tikotekar","Anshu Meena","Divyansh Goyal",
+  "Parth Saxena","Fulsundar Yash Shrikant","Tvisha Vibhu Malige","Nishant Miglani",
+  "Priyansh Kumar","Dhruv Shriram Narkhede","Krrish Garg","Pema Yangkit",
+  "Abhineet Avhad","Ishaan Singla","Sagar Sehrawat","Ayushi Tiwari",
+  "Amogh Uday Sadadekar","Mihika Maheshwari","Nandan Banka","Shivam Kushwaha",
+  "Abhiraj Kumar","Medhansh Mehta","Govind Gupta","Arun Kumar Gupta",
+  "Yogita Parmar","Mukund Patwardhan","Dhruba Jyoti Panja",
+  "Konjarla Shankar Manik","Divit Ghorpade","Nikhil Patil","Bhavik Jain",
+  "Riddhimaa Mishra","Dhruv Sunil Parsewar","Neha Kharkar","Reyansh Agarwal",
+  "Jaison Jose","Pairavi Sunil Kulkarni","Arekar Vishakha Parasharam",
+  "Chinmaya Shankara Shastry","Sai Ingle","Ramavath Duntiindupriya",
+  "Lokesh Umate","Akash Huzzat","Vrajpalsinh Jadeja",
+  "Mathangi Parthasarathy","Hima Bindu","Soumy Gupta","Yash Shirishkar",
+  "Saharsh Goenka","Teshu Nema","Lokesh N S","Arun","Arnav Purohit",
+  "Ashish Sahu","Priyanshu Latta","Pushkal Ladha","Jahanvi",
+  "Vishwajeet Chavan","Hemant Saini","Shaurya Sachin Bhaiya","Kunal Pareek",
+  "Prithviraj Thavil","Vishwesh Khandare","Vaishnavi Raut",
+  "Shagun Nilesh Tapadia","Vatsal Shah","Abhishek Yadav","Rahul Bhadrinath",
+  "Ansh Mankar","Adarsh Gautam Jha","Aryan Anarkat","Vivek Chauhan","Shoaib",
+  "Sri Srujana Jami","Siddhant","Mahanth","Kushagra","Om Manish Kadam",
+  "Kunal Kundal","Jainam Rampuria","Adhrit Majumdar",
+  "Aayush Ravi Chaudhari","Dhiraj Kumar Chouhan","Rishit Raj Singh",
+  "Vaidehi Ghadmode","Sahil Shankar Lade","Vatsal Khandelwal",
+  "Shreyas Kansal","Nikhil Kumar","Rahul Patil","Piyush Tirale",
+  "Samruddhi Sagar Magadum","Sohan Chelekar","Chhavi Verma","Neeraj",
+  "Aditi Nimbolkar","Aroosh Singh","Saraah Ajay Nawankar","Shlok Patel",
+  "Rishab Raghuvanshi","Atharv Pratap Singh Chauhan","Siddhant Sharma",
+  "Samrat Dixit","Pulkit Saini","Jyoti","Veer Sanghvi",
+  "Kotipalli Yaswanth Satwik","Adibala Bharat","Pranav Nori",
+  "Sahil Sundeep Gupte","Siddhi Hivarekar","Parth Rane","Suhani Gupta",
+  "Asad Noor","Heimvi Singh","Jerish Abijith Singh A S",
+  "Atharva Parag Kalyani","Parth Samit Lohiya","Aritro Ray","Rajat Tiwari",
+  "Shreyash Anil Wagh","Shreyas Boddeti","Althi R S S Yeswanth Naidu",
+  "Mannya Singh","Manohar","Paritosh Tupkary","Ainesh Prakash",
+  "Navinya Desai","Tanvi Yawale","Shanmuka Priya","Anjali Jogi",
+  "Siddhant Patankar","Arnav Khobragade","Gandhar Vartak",
+  "Aaditya Yadav","Vedika","Umme Hani Chakkiwala","Ankit Kumar",
+  "Shishir V Shetty","Saanvi Waalvekar","Keegan Leitao",
+  "RawYoll","Rising Aeronauts",
+  "Dhruva",
+  "Medhansh",
+  "Ganesh Sabne",
+  "Santosh Tadiboyins",
+  "Yojit",
+  "Shur",
+  "Ridhima",
+  "Raghav Aggarwal"
+];
+
+
+/* ================= AUTOSUGGEST ================= */
+const input = document.getElementById("teamNameInput");
+const suggestionBox = document.getElementById("suggestions");
+
+input.addEventListener("input", () => {
+  const val = input.value.toLowerCase();
+  suggestionBox.innerHTML = "";
+  if (!val) return;
+
+  [...new Set(participants)]
+    .filter(p => p.toLowerCase().startsWith(val))
+    .slice(0, 5)
+    .forEach(name => {
+      const div = document.createElement("div");
+      div.className = "suggestion";
+      div.textContent = name;
+      div.onclick = () => {
+        input.value = name;
+        suggestionBox.innerHTML = "";
+      };
+      suggestionBox.appendChild(div);
+    });
+});
+
+/* ================= CERTIFICATE LOGIC ================= */
 function generateCertificate() {
-  const inputField = document.getElementById("teamNameInput");
-  const inputName = inputField.value.trim().toLowerCase(); // clean input
+  const entered = input.value.trim().toLowerCase();
   const certDiv = document.getElementById("certificate");
-  const teamText = document.getElementById("teamNameOnCert");
+  const text = document.getElementById("teamNameOnCert");
 
-  // Normalize eligible team list
-  const normalizedTeams = eligibleTeams.map(t => t.trim().toLowerCase());
+  const match = participants.find(p =>
+    p.toLowerCase().startsWith(entered)
+  );
 
-  console.log("Entered:", inputName);  // Debug check
-  console.log("Eligible teams:", normalizedTeams);  // Debug check
-
-  if (normalizedTeams.includes(inputName)) {
-    teamText.textContent = inputField.value.trim(); // preserve original casing
+  if (match) {
+    text.textContent = match;
     certDiv.style.display = "block";
 
-    // Add download button if not already there
     if (!document.getElementById("downloadBtn")) {
       const btn = document.createElement("button");
-      btn.textContent = "Download Certificate";
       btn.id = "downloadBtn";
+      btn.textContent = "Download Certificate";
       btn.onclick = downloadCertificate;
       document.body.appendChild(btn);
     }
   } else {
     certDiv.style.display = "none";
-    alert("Sorry, this team is not eligible for a certificate.");
+    alert("Name not found");
   }
 }
 
+function downloadCertificate() {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  const img = document.getElementById("certificateImg");
+  const name = document.getElementById("teamNameOnCert").textContent;
 
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
 
-    function downloadCertificate() {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const img = document.getElementById("certificateImg");
-      const teamName = document.getElementById("teamNameOnCert").textContent;
+  ctx.drawImage(img, 0, 0);
+  ctx.font = `${canvas.width * 0.04}px Montserrat`;
+  ctx.textAlign = "center";
+  ctx.fillText(name, canvas.width / 2, canvas.height * 0.33);
 
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
+  const link = document.createElement("a");
+  link.download = `${name}_Certificate.png`;
+  link.href = canvas.toDataURL();
+  link.click();
+}
+</script>
 
-      // Draw certificate background
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-      // Add team name text
-      ctx.font = `${canvas.width * 0.04}px Montserrat`;
-      ctx.fillStyle = "#1e1e1e";
-      ctx.textAlign = "center";
-      ctx.fillText(teamName, canvas.width / 2, canvas.height * 0.33);
-
-      // Download the combined image
-      const link = document.createElement("a");
-      link.download = `${teamName}_Certificate.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    }
-  </script>
 </body>
 </html>
-
-
-
-
-
-
